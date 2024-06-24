@@ -10,13 +10,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.sunnyshop.sunnyrecordshop.databinding.AlbumItemBinding;
 import com.sunnyshop.sunnyrecordshop.model.Album;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder> {
-    private List<Album> albumList;
+    private ArrayList<Album> albumList;
+
     private Context context;
 
-    public AlbumAdapter(List<Album> albumList, Context context) {
+
+    public AlbumAdapter(ArrayList<Album> albumList, Context context) {
         this.albumList = albumList;
         this.context = context;
     }

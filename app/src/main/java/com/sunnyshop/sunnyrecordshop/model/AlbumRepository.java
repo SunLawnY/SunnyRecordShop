@@ -2,6 +2,7 @@ package com.sunnyshop.sunnyrecordshop.model;
 
 import android.app.Application;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -45,5 +46,23 @@ public class AlbumRepository {
         });
 
         return mutableLiveData;
+    }
+    
+    public void addMutableLiveData(Album album) {
+        
+        AlbumApiService albumApiService = RetrofitInstance.getService();
+        Call<Album> call = albumApiService.addAlbum(album);
+        
+        call.enqueue(new Callback<Album>() {
+            @Override
+            public void onResponse(Call<Album> call, Response<Album> response) {
+                Toast.makeText(application.getApplicationContext(), "Album added to Database", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<Album> call, Throwable t) {
+                Toast.makeText(application.getApplicationContext(), "Uable to add album to DataBase", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
