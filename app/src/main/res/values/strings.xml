@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Sunny Record Shop</string>
+
+    <string-array name="genre_array">
+        <item>POP</item>
+        <item>HIP_HOP</item>
+        <item>ELECTRONIC</item>
+        <item>K_POP</item>
+        <item>LATIN</item>
+        <item>ROCK</item>
+    </string-array>
 </resources>

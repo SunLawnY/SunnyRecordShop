@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.sunnyshop.sunnyrecordshop.R;
 import com.sunnyshop.sunnyrecordshop.databinding.AlbumItemBinding;
 import com.sunnyshop.sunnyrecordshop.model.Album;
@@ -46,11 +47,23 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHol
     public void onBindViewHolder(@NonNull AlbumViewHolder holder, int position) {
         Album album = albumList.get(position);
         holder.albumItemBinding.setAlbum(album);
+
+        // Use Glide to load picture
+        Glide.with(holder.itemView.getContext())
+                .load(album.getImageUrl()) // check if album have a getImageUrl() method
+                .placeholder(R.drawable.record) // if no photo fetch then display this default image
+                .error(R.drawable.record) // if fetch but cannot display show this image
+                .into(holder.albumItemBinding.recordPhoto);
     }
 
     @Override
     public int getItemCount() {
         return albumList != null ? albumList.size() : 0;
+    }
+
+    public void setFilterList(ArrayList<Album> filterAlbumList) {
+        this.albumList = filterAlbumList;
+        notifyDataSetChanged();
     }
 
     public static class AlbumViewHolder extends RecyclerView.ViewHolder {

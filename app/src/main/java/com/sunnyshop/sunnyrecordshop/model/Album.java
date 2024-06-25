@@ -23,17 +23,20 @@ public class Album extends BaseObservable implements Parcelable {
     private String albumName;
     @SerializedName("stock")
     private Integer stock;
+    @SerializedName("image_url")
+    private String imageUrl;
 
     public Album() {
     }
 
-    public Album(Long id, String artist, Integer releasedYear, String genre, String albumName, Integer stock) {
+    public Album(Long id, String artist, Integer releasedYear, String genre, String albumName, Integer stock, String imageUrl) {
         this.id = id;
         this.artist = artist;
         this.releasedYear = releasedYear;
         this.genre = genre;
         this.albumName = albumName;
         this.stock = stock;
+        this.imageUrl = imageUrl;
     }
 
     protected Album(Parcel in){
@@ -115,6 +118,16 @@ public class Album extends BaseObservable implements Parcelable {
     public void setStock(Integer stock) {
         this.stock = stock;
         notifyPropertyChanged(BR.stock);
+    }
+
+    @Bindable
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+        notifyPropertyChanged(BR.imageUrl);
     }
 
 

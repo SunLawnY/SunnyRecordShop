@@ -40,16 +40,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/editTextTitle" />
 
-        <EditText
-            android:id="@+id/editTextGenre"
-            android:layout_width="0dp"
+        <Spinner
+            android:id="@+id/spinnerGenre"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/editTextArtist"
             android:layout_marginTop="16dp"
-            android:hint="Genre"
-            android:text="@={album.genre}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editTextArtist" />
+            app:layout_constraintTop_toBottomOf="@id/editTextArtist"/>
 
         <EditText
             android:id="@+id/editTextYear"
@@ -61,7 +60,7 @@
             android:text="@={Converters.integerToString(album.releasedYear)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editTextGenre" />
+            app:layout_constraintTop_toBottomOf="@id/spinnerGenre" />
 
         <EditText
             android:id="@+id/editTextStock"
@@ -75,6 +74,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/editTextYear" />
 
+        <EditText
+            android:id="@+id/editTextImageUrl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Image"
+            android:text="@={album.imageUrl}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editTextStock" />
+
         <Button
             android:id="@+id/buttonSave"
             android:layout_width="wrap_content"
@@ -84,7 +94,7 @@
             android:onClick="@{clickHandler::onSubmitBtnClicked}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editTextStock" />
+            app:layout_constraintTop_toBottomOf="@id/editTextImageUrl" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/cancel_button"
@@ -96,7 +106,7 @@
             android:onClick="@{clickHandler::onBackBtnClick}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@android:drawable/btn_minus" />
+            app:srcCompat="@android:drawable/ic_delete" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

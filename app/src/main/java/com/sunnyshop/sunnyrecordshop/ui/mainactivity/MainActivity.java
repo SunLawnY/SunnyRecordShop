@@ -3,6 +3,8 @@ package com.sunnyshop.sunnyrecordshop.ui.mainactivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -29,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
     private ActivityMainBinding binding;
     private MainActivityClickHandler clickHandler;
     private static final String ALBUM_KEY = "album";
+    //SearchView
+    private SearchView searchView;
 
 
     @Override
@@ -43,8 +47,49 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         binding.setClickHandler(clickHandler);
 
         initRecyclerView();
+
+
+        //Below start the searchView
+        searchView = findViewById(R.id.searchView);
+        searchView.clearFocus();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return true;
+            }
+        });
+
         getAllAlbums();
     }
+
+    private void filterList(String newText){
+
+        ArrayList<Album> filterAlbumList = new ArrayList<>();
+
+        for(Album album : albums){
+            if (album.getAlbumName().toLowerCase().contains(newText.toLowerCase())){
+                filterAlbumList.add(album);
+            }
+        }
+
+        if(filterAlbumList.isEmpty()){
+            Toast.makeText(MainActivity.this, "No album found", Toast.LENGTH_SHORT).show();
+        } else {
+            albumAdapter.setFilterList(filterAlbumList);
+        }
+    }
+
+
+
+
+
 
     private void initRecyclerView() {
         albumAdapter = new AlbumAdapter(this, albums, this);

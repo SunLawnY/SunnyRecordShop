@@ -36,7 +36,8 @@ public class AddAlbumClickHandlers {
                     album.getReleasedYear(),
                     album.getGenre(),
                     album.getAlbumName(),
-                    album.getStock()
+                    album.getStock(),
+                    album.getImageUrl()
             );
 
             mainActivityViewModel.addAlbum(newAlbum);
