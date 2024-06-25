@@ -6,6 +6,9 @@ android {
     namespace 'com.sunnyshop.sunnyrecordshop'
     compileSdk 34
 
+    buildFeatures{
+        dataBinding true
+    }
     defaultConfig {
         applicationId "com.sunnyshop.sunnyrecordshop"
         minSdk 28
@@ -21,10 +24,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-    }
-
-    buildFeatures{
-        dataBinding true
     }
 
     compileOptions {

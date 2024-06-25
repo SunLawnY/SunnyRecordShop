@@ -1,5 +1,6 @@
 package com.sunnyshop.sunnyrecordshop.ui.mainactivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -8,20 +9,27 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.sunnyshop.sunnyrecordshop.R;
 import com.sunnyshop.sunnyrecordshop.databinding.ActivityMainBinding;
 import com.sunnyshop.sunnyrecordshop.model.Album;
+import com.sunnyshop.sunnyrecordshop.ui.updatealbum.UpdateAlbumActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RecyclerViewInterface {
+
+    private RecyclerView recyclerView;
     private static final String TAG = "MainActivity";
-    private ArrayList<Album> albums = new ArrayList<>();
+    private ArrayList<Album> albums;
     private AlbumAdapter albumAdapter;
     private MainActivityViewModel viewModel;
     private ActivityMainBinding binding;
+    private MainActivityClickHandler clickHandler;
+    private static final String ALBUM_KEY = "album";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +37,17 @@ public class MainActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
 
+        albums = new ArrayList<>();
+
+        clickHandler = new MainActivityClickHandler(this);
+        binding.setClickHandler(clickHandler);
+
         initRecyclerView();
         getAllAlbums();
     }
 
     private void initRecyclerView() {
-        albumAdapter = new AlbumAdapter(albums, this);
+        albumAdapter = new AlbumAdapter(this, albums, this);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(albumAdapter);
         binding.recyclerView.setHasFixedSize(true);
@@ -54,5 +67,14 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Intent intent = new Intent(MainActivity.this, UpdateAlbumActivity.class);
+
+        intent.putExtra(ALBUM_KEY, albums.get(position));
+
+        startActivity(intent);
     }
 }
